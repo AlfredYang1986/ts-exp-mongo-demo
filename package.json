@@ -27,6 +27,7 @@
     "@types/mongoose": "^5.5.8",
     "@types/node": "^12.6.2",
     "tslint": "^5.18.0",
+    "typedoc": "^0.14.2",
     "typescript": "^2.8.4"
   }
 }
