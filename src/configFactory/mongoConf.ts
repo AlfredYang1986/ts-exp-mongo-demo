@@ -15,4 +15,7 @@ export class MongoConf {
 
     @JsonProperty("pwd", String)
     public pwd: string = undefined
+
+    @JsonProperty("coll", String)
+    public coll: string = undefined
 }

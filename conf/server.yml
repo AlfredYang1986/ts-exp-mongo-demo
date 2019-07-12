@@ -8,3 +8,4 @@ mongo:
   port: 27017
   username: alfredyang
   pwd: "12345"
+  coll: "tstest"
