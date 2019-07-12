@@ -9,7 +9,7 @@ Typescript + express + json-api + mongoose
 3. yarn 安装各种依赖
 4. npm run build 编译
 5. npm run start 启动程序
-8. 访问http://localhost:8080即可看到API的使用情况
+8. 访问http://localhost:8080 即可看到API的使用情况
 
 ## 自文档
 1. 在工程目录下运行 npm run docs
@@ -36,7 +36,7 @@ PhLogger.fatal(<what ever you want>)
 ```yml
 models:
   - file: <文件名：大驼峰>
-  - reg: <访问名：在json-api下是文件名的复数>
+    reg: <访问名：在json-api下是文件名的复数>
 ```
 3. 修改conf文件夹下的yml文件，配置数据库
 ```yml
