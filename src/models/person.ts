@@ -1,5 +1,5 @@
 "use strict"
-import { ModelType, prop, Ref, Typegoose } from "typegoose"
+import { prop, Ref, Typegoose } from "typegoose"
 import IModelBase from "./modelBase"
 import Place from "./Place"
 

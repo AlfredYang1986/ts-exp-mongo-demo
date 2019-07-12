@@ -1,10 +1,9 @@
 "use strict"
-import { objectExpression } from "babel-types"
 import express from "express"
 import * as fs from "fs"
 import * as yaml from "js-yaml"
 import API, { ResourceTypeRegistry } from "json-api"
-import { JsonConvert, OperationMode, ValueCheckingMode } from "json2typescript"
+import { JsonConvert, ValueCheckingMode } from "json2typescript"
 import mongoose = require("mongoose")
 import { ServerConf } from "../configFactory/serverConf"
 
@@ -52,7 +51,7 @@ export default class AppDelegate {
     }
 
     protected connect2MongoDB() {
-        const prefix = "mongodb"
+        const prefix = this.conf.mongo.algorithm
         const host = this.conf.mongo.host
         const port = `${this.conf.mongo.port}`
         // const username = this.conf.mongo.username
@@ -71,9 +70,12 @@ export default class AppDelegate {
         })
         return new API.ResourceTypeRegistry(result, {
             dbAdapter: new API.dbAdapters.Mongoose(this.generateModels()),
+            info: {
+                description: "Blackmirror inc. Alfred Yang 2019"
+            },
             urlTemplates: {
                 self: "/{type}/{id}"
-            }
+            },
         })
     }
 
@@ -83,14 +85,14 @@ export default class AppDelegate {
             new API.controllers.Documentation(registry, {name: "Pharbers API"})
         )
 
-        // this.app.get("/", Front.docsRequest)
+        this.app.get("/", Front.docsRequest)
         const perfix = "/:type"
         const ms = this.conf.models.map((x) => x.reg).join("|")
         const suffix = "/:id"
 
         const all = perfix + "(" + ms + ")"
         const one = all + suffix
-        const relation = one + "/relationships/:relationship" 
+        const relation = one + "/relationships/:relationship"
 
         // Add routes for basic list, read, create, update, delete operations
         this.app.get(all, Front.apiRequest)

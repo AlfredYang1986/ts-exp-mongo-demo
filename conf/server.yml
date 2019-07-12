@@ -4,6 +4,7 @@ models:
   - file: Place
     reg: places
 mongo:
+  algorithm: mongodb
   host: localhost
   port: 27017
   username: alfredyang

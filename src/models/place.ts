@@ -1,6 +1,5 @@
 "use strict"
-import * as mongoose from "mongoose"
-import { ModelType, prop, Typegoose} from "typegoose"
+import { prop, Typegoose} from "typegoose"
 import IModelBase from "./modelBase"
 
 class Place extends Typegoose implements IModelBase<Place> {
