@@ -1,9 +1,15 @@
-"use strict";
-import { prop, Typegoose} from "typegoose";
+"use strict"
+import * as mongoose from "mongoose"
+import { ModelType, prop, Typegoose} from "typegoose"
+import IModelBase from "./modelBase"
 
-export class Place extends Typegoose {
+class Place extends Typegoose implements IModelBase<Place> {
     @prop({ required: true })
-    public name?: string;
+    public name?: string
+
+    public getModel() {
+        return this.getModelForClass(Place)
+    }
 }
 
-export const PlaceModel = new Place().getModelForClass(Place);
+export default Place

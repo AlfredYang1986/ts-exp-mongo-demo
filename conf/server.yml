@@ -1,0 +1,10 @@
+models:
+  - file: Person
+    reg: people
+  - file: Place
+    reg: places
+mongo:
+  host: localhost
+  port: 27017
+  username: alfredyang
+  pwd: "12345"
