@@ -6,8 +6,20 @@ import API, { ResourceTypeRegistry } from "json-api"
 import { JsonConvert, ValueCheckingMode } from "json2typescript"
 import mongoose = require("mongoose")
 import { ServerConf } from "../configFactory/serverConf"
+import PhLogger from "../logger/phLogger"
 
+/**
+ * The summary section should be brief. On a documentation web site,
+ * it will be shown on a page that lists summaries for many different
+ * API items.  On a detail page for a single item, the summary will be
+ * shown followed by the remarks section (if any).
+ *
+ */
 export default class AppDelegate {
+
+    /**
+     * @returns the configuration of the server
+     */
     public get Conf(): ServerConf {
         return this.conf
     }
@@ -32,8 +44,7 @@ export default class AppDelegate {
             jsonConvert.valueCheckingMode = ValueCheckingMode.DISALLOW_NULL // never allow null
             this.conf = jsonConvert.deserializeObject(doc, ServerConf)
           } catch (e) {
-            // tslint:disable-next-line:no-console
-            console.log(e as Error)
+            PhLogger.fatal( e as Error )
           }
     }
 
@@ -58,8 +69,7 @@ export default class AppDelegate {
         // const pwd = this.conf.mongo.pwd
         const coll = this.conf.mongo.coll
         mongoose.connect(prefix + "://" + host + ":" + port + "/" + coll, { useNewUrlParser: true }, (err) => {
-            // tslint:disable-next-line:no-console
-            console.log(process.env.JAVA_HOME)
+            PhLogger.info(process.env.JAVA_HOME)
         })
     }
 
@@ -85,6 +95,7 @@ export default class AppDelegate {
             new API.controllers.Documentation(registry, {name: "Pharbers API"})
         )
 
+        PhLogger.startConnectLog(this.app)
         this.app.get("/", Front.docsRequest)
         const perfix = "/:type"
         const ms = this.conf.models.map((x) => x.reg).join("|")
@@ -110,8 +121,7 @@ export default class AppDelegate {
     protected listen2Port(port: number) {
         // start the Express server
         this.app.listen( port, () => {
-            // tslint:disable-next-line:no-console
-            console.log( `server started at http://localhost:${ port }` )
+            PhLogger.info( `server started at http://localhost:${ port }` )
         } )
     }
 }

@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "docs": "typedoc -out docs src",
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "prestart": "npm run build",
@@ -26,6 +27,7 @@
     "@types/mongodb": "^3.1.28",
     "@types/mongoose": "^5.5.8",
     "@types/node": "^12.6.2",
+    "json2typescript": "^1.2.3",
     "tslint": "^5.18.0",
     "typedoc": "^0.14.2",
     "typescript": "^2.8.4"
