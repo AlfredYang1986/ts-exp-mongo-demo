@@ -65,11 +65,13 @@ export default class AppDelegate {
         const prefix = this.conf.mongo.algorithm
         const host = this.conf.mongo.host
         const port = `${this.conf.mongo.port}`
-        // const username = this.conf.mongo.username
-        // const pwd = this.conf.mongo.pwd
+        const username = this.conf.mongo.username
+        const pwd = this.conf.mongo.pwd
         const coll = this.conf.mongo.coll
-        mongoose.connect(prefix + "://" + host + ":" + port + "/" + coll, { useNewUrlParser: true }, (err) => {
-            PhLogger.info(process.env.JAVA_HOME)
+        mongoose.connect(prefix + "://" + username + ":" + pwd + "@" + host + ":" + port + "/" + coll,
+        { useNewUrlParser: true },
+        (err) => {
+            PhLogger.info(err)
         })
     }
 
