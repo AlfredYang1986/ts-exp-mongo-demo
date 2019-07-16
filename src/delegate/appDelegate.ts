@@ -43,9 +43,9 @@ export default class AppDelegate {
             jsonConvert.ignorePrimitiveChecks = false // don't allow assigning number to string etc.
             jsonConvert.valueCheckingMode = ValueCheckingMode.DISALLOW_NULL // never allow null
             this.conf = jsonConvert.deserializeObject(doc, ServerConf)
-          } catch (e) {
+        } catch (e) {
             PhLogger.fatal( e as Error )
-          }
+        }
     }
 
     protected generateModels(): any {
@@ -68,11 +68,24 @@ export default class AppDelegate {
         const username = this.conf.mongo.username
         const pwd = this.conf.mongo.pwd
         const coll = this.conf.mongo.coll
-        mongoose.connect(prefix + "://" + username + ":" + pwd + "@" + host + ":" + port + "/" + coll,
-        { useNewUrlParser: true },
-        (err) => {
-            PhLogger.info(err)
-        })
+        const auth = this.conf.mongo.auth
+        if (auth) {
+            PhLogger.info(`connect mongodb with ${ username } and ${ pwd }`)
+            mongoose.connect(prefix + "://" + username + ":" + pwd + "@" + host + ":" + port + "/" + coll,
+                { useNewUrlParser: true },
+                (err) => {
+                    if (err != null) {
+                        PhLogger.error(err)
+                    }
+                })
+        } else {
+            PhLogger.info(`connect mongodb without auth`)
+            mongoose.connect(prefix + "://" + host + ":" + port + "/" + coll, { useNewUrlParser: true }, (err) => {
+                if (err != null) {
+                    PhLogger.error(err)
+                }
+            })
+        }
     }
 
     protected getModelRegistry(): ResourceTypeRegistry {

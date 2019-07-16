@@ -10,3 +10,4 @@ mongo:
   username: alfredyang
   pwd: "12345"
   coll: "tstest"
+  auth: false
