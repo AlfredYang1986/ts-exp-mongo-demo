@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/js-yaml": "^3.12.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "js-yaml": "^3.13.1",
     "json-api": "^3.0.0-rc.6.0.1",
     "log4js": "^4.5.1",
